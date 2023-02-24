@@ -1,5 +1,5 @@
-require_relative "author.rb"
-require_relative "magazine.rb"
+require_relative "./author.rb"
+require_relative "./magazine.rb"
 class Article
     attr_accessor :author, :magazine, :title
     @@all = []
@@ -11,17 +11,8 @@ class Article
         @author = author
         @title = title
     end
-    def author
-        @author.name
-    end
-    def magazine
-        @magazine.name
-    end
-    def self.title
-        @@title
-    end
-    def self.all
-        @@all
-    end
+    def self.total_article
+        @@all_article
+     end  
 end
 

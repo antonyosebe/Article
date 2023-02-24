@@ -1,22 +1,21 @@
-require_relative "article.rb"
-require_relative "magazine.rb"
+require_relative "./article.rb"
+require_relative "./magazine.rb"
 class Author
-    attr_accessor :name
+    attr_reader :name
     def initialize(name)
         @name=name
     end
     def articles
-        Article.all.select do |article| article.author end
-      end 
-      def magazines
-        magazine = Article.all.map do |article| article.magazine end
-        magazine.uniq
-      end
-      def add_article(magazine, title)
+      article = Article.total_article.select {|item|item.author.name == name}
+    end 
+    def magazines
+      author_article = Article.total_article.select {|item|item.author.name == name }
+      author_article.map{|item|item.magazine}.uniq
+    end
+    def add_article(magazine, title)
         Article.new(self, magazine, title)
-      end
-      def topic_areas
-        topic = Magazine.all.map do |magazine| magazine.category end
-        topic.uniq
-      end
+    end
+    def topic_areas
+      Magazine.map {|magazine| magazine.category}
+    end
 end

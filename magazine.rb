@@ -1,35 +1,34 @@
-require_relative "article.rb"
-require_relative "author.rb"
+require_relative "./article.rb"
+require_relative "./author.rb"
 class Magazine
-    attr_accessor :name, :category, :contributors
+    attr_accessor :name, :category
   
-    @@all = []
+    @@all_magazine = []
     def initialize(name, category)
       @name = name
       @category = category
-      @@all << self
+      @@all_magazine.push(self)
   
     end
-    def self.all
-      @@all
+    def self.total_magazine
+      @@all_magazine
     end
     def contributors
-      Article.all.map do |article| article.author end.uniq
+      contributor = Article.total_article.select {|item|item.magazine.name == name}contributor.map {|item|item.author}.uniq
     end
     def self.find_by_name(name)
-      Magazine.all.find do |magazine| magazine.name end
+      @@all_magazine.select{|item|item.name==name}.first
     end
     def my_article
-      Article.all.filter do |article| article.magazine == self.name end
+      titles = Article.total_article.select{|item|item.magazine.name ==name}titles.map{|item|item.title}
     end
     def article_titles
       my_article.map do |article| article.title end
     end
     def contributing_authors
-      my_author = my_article.map do |article| article.author end
-      my_uniq_author = my_author.uniq  
-      if my_author.count(my_uniq_author[0]) > 2
-        my_uniq_author
+      articles = Article.total_article.select {|item|item.magazine.name == name}
+        contributors = articles.map{|article|article.author }.tally
+        contributors.select{|k,v|  v > 2}.keys
       end
     end
   end
